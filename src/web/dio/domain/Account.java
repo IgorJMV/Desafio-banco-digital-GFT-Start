@@ -1,9 +1,11 @@
 package web.dio.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Getter;
+import web.dio.domain.enums.TransactionType;
 import web.dio.domain.interfaces.AccountContract;
 
 @Getter
@@ -20,13 +22,19 @@ public abstract class Account implements AccountContract{
 		this.client = client;
 		this.amount = 0.0;
 	}
+	
+	public void bankStatement(){
+		for(Transaction t : bankStatement)
+			System.out.println(t);
+	}
 
 	@Override
 	public void deposit(Double value) {
 		if(value <= 0.0)
 			throw new IllegalArgumentException("Valor de depósito inválido.");
 		
-		amount += value;		
+		amount += value;
+		bankStatement.add(new Transaction(value, new Date(), TransactionType.DEPOSIT));
 	}
 
 	@Override
@@ -35,12 +43,14 @@ public abstract class Account implements AccountContract{
 			throw new IllegalArgumentException("Valor inválido de saque ou saldo insuficiente.");
 		
 		amount -= value;
+		bankStatement.add(new Transaction(value, new Date(), TransactionType.WITHDRAW));
 	}
 
 	@Override
 	public void transfer(Double value, Account account) {
 		this.withdraw(value);
 		account.deposit(value);
+		bankStatement.add(new Transaction(value, new Date(), TransactionType.TRANSFER));
 	}
 
 	@Override

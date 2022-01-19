@@ -10,7 +10,7 @@ import web.dio.domain.enums.TransactionType;
 @AllArgsConstructor
 @Getter
 public class Transaction {
-	private SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+	protected static SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 	
 	private Double amount;
 	private Date instant;
