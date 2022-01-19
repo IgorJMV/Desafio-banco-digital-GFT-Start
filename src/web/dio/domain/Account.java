@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import lombok.EqualsAndHashCode;
+import lombok.EqualsAndHashCode.Include;
 import lombok.Getter;
 import web.dio.domain.enums.TransactionType;
 import web.dio.domain.interfaces.AccountContract;
 
 @Getter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public abstract class Account implements AccountContract{
 	private String agency;
+	@Include
 	private String number;
 	private Double amount;
 	private Client client;
@@ -48,7 +52,10 @@ public abstract class Account implements AccountContract{
 
 	@Override
 	public void transfer(Double value, Account account) {
-		this.withdraw(value);
+		if(value <= 0.0 && value <= amount)
+			throw new IllegalArgumentException("Valor inválido de saque ou saldo insuficiente.");
+		
+		amount -= value;
 		account.deposit(value);
 		bankStatement.add(new Transaction(value, new Date(), TransactionType.TRANSFER));
 	}
@@ -56,7 +63,7 @@ public abstract class Account implements AccountContract{
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("--- " + client.getName() + " ---");
+		sb.append("--- " + client.getName() + " ---\n");
 		sb.append(agency + " * " + number);
 		
 		return sb.toString();

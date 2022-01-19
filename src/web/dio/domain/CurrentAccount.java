@@ -13,7 +13,7 @@ public class CurrentAccount extends Account{
 	
 	@Override
 	public void withdraw(Double value) {
-		value -= percentageTax/100*value;
+		value += percentageTax/100*value;
 		super.withdraw(value);
 	}
 
