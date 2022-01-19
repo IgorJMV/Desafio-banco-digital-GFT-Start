@@ -8,7 +8,7 @@ Digital Bank é um sistema que implementa o mínimo necessário para representar
 Esse projeto faz parte do desafio proposto no bootcamp GFT Start #3 Java disponibilizado na plataforma DIO.
 
 ## Modelo conceitual
-![Modelo Conceitual](https://github.com/IgorJMV/Desafio-banco-digital-GFT-Start\tree\main\assets\domain.png)
+![Modelo Conceitual](https://github.com/IgorJMV/Desafio-banco-digital-GFT-Start/blob/main/assets/domain.png)
 
 # Tecnologias utilizadas
 - Java
